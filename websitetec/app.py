@@ -12,6 +12,10 @@ st.write("マウスで数字を描いて、予想を選んでから「予想を�
 # KNN モデルの初期化とトレーニング
 knn = init_knn(X_train, k=5)
 
+# セッションステートに 'user_prediction' が存在するか確認し、存在しない場合は初期化
+if 'user_prediction' not in st.session_state:
+    st.session_state.user_prediction = None
+
 # 正解記録を保持するためのセッションステートを初期化
 if 'attempts' not in st.session_state:
     st.session_state.attempts = 0
