@@ -1,7 +1,7 @@
 import numpy as np
 from PIL import Image
 import streamlit as st
-from faiss_kneighbors import FaissKNeighbors
+from faiss_kneighbors import FaissKNeighbors  # FaissKNeighbors クラスを正しくインポートする
 
 # KNN 分類器の初期化とトレーニング
 def init_knn(X_train, k=5):
@@ -9,7 +9,6 @@ def init_knn(X_train, k=5):
     knn.fit(X_train.reshape(-1, 28 * 28))
     return knn
 
-# KNN による分類と結果の表示
 # KNN による分類と結果の表示
 def run_knn_classification(canvas_result, knn, y_test):
     # 描画された画像を取得
@@ -31,12 +30,8 @@ def run_knn_classification(canvas_result, knn, y_test):
         if len(votes) > 0:
             prediction = np.bincount(votes).argmax()
         
-        # 以下、予測結果と正解記録、正解率の表示など
-        else:
-            st.write("描画された内容が認識できません。もう一度描いてください。")
-
-            # 予測結果と正解記録の更新
-            user_prediction = st.session_state.user_prediction
+            # 以下、予測結果と正解記録、正解率の表示など
+            user_prediction = st.session_state.user_prediction  # user_prediction を取得
             if user_prediction == prediction:
                 st.session_state.correct += 1
             st.session_state.attempts += 1
