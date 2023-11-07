@@ -3,6 +3,8 @@ from utils import load_mnist_data, load_explanations
 from canvas import display_canvas
 from knn_module import init_knn, run_knn_classification
 
+X_train, y_train = load_mnist_data()
+
 # Streamlitアプリケーションの開始
 st.title("手書き数字認識アプリ")
 st.write("マウスで数字を描いて、予想を選んでから「予想を送信」を押してください。")
