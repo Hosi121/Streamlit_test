@@ -7,6 +7,9 @@ from knn_module import run_knn_classification
 st.title("手書き数字認識アプリ")
 st.write("マウスで数字を描いて、予想を選んでから「予想を送信」を押してください。")
 
+# KNN モデルの初期化とトレーニング
+knn = init_knn(X_train, k=5)
+
 # 正解記録を保持するためのセッションステートを初期化
 if 'attempts' not in st.session_state:
     st.session_state.attempts = 0
@@ -18,9 +21,9 @@ col1, col2, col3 = st.columns([2,5,3])
 # キャンバスの表示
 canvas_result = display_canvas(col2)
 
-# KNN 分類の実行
+# KNN による分類
 if canvas_result.image_data is not None:
-    run_knn_classification(canvas_result, col2, col3)
+    run_knn_classification(canvas_result, knn, y_test)
 
 # サイドバーの表示
 with st.sidebar:
