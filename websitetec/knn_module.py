@@ -45,9 +45,9 @@ def run_knn_classification(canvas_result, knn, Y_train):
             cols = st.columns(knn.k)
                 for i, idx in enumerate(indexs.flatten()):
                     with cols[i]:
-                        pred_image = Image.fromarray(X_test[idx])
+                        pred_image = Image.fromarray(X_train[idx])
                         pred_image = pred_image.resize((100, 100))
                         pred_image = np.array(pred_image)
-                        st.image(pred_image, clamp=True, caption=f'ラベル = {y_test[idx]}')
+                        st.image(pred_image, clamp=True, caption=f'ラベル = {Y_train[idx]}')
             # 正解率の表示
             st.metric(label="正解率", value=f"{accuracy:.2f}%")
