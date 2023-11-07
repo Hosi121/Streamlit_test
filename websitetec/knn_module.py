@@ -1,7 +1,7 @@
 import numpy as np
 from PIL import Image
 import streamlit as st
-from faiss_kneighbors import FaissKNeighbors  # FaissKNeighbors クラスを正しくインポートする
+from faiss_kneighbors import FaissKNeighbors  # 仮定するインポート
 
 # KNN 分類器の初期化とトレーニング
 def init_knn(X_train, k=5):
@@ -45,7 +45,8 @@ def run_knn_classification(canvas_result, knn, y_test):
             cols = st.columns(knn.k)
             for i, idx in enumerate(indices.flatten()):
                 with cols[i]:
-                    pred_image = Image.fromarray(y_test[idx])
+                    # 画像を正しく変換
+                    pred_image = Image.fromarray(y_test[idx].reshape(28, 28), mode='L')
                     pred_image = pred_image.resize((100, 100))
                     pred_image = np.array(pred_image)
                     st.image(pred_image, clamp=True, caption=f'ラベル = {y_test[idx]}')
