@@ -3,7 +3,7 @@ from utils import load_mnist_data, load_explanations
 from canvas import display_canvas
 from knn_module import init_knn, run_knn_classification
 
-X_train, y_test = load_mnist_data()  # X_train, y_train を読み込む
+X_train, Y_train = load_mnist_data()
 
 # Streamlitアプリケーションの開始
 st.title("手書き数字認識アプリ")
@@ -29,7 +29,7 @@ canvas_result = display_canvas(col2)
 
 # KNN による分類
 if canvas_result.image_data is not None:
-    run_knn_classification(canvas_result, knn, y_test)
+    run_knn_classification(canvas_result, knn, Y_train)
 
 # サイドバーの表示
 with st.sidebar:
