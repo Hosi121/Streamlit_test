@@ -1,9 +1,15 @@
 from keras.datasets import mnist
+import os
 
 def load_mnist_data():
     _, (X_test, y_test) = mnist.load_data()
     return X_test, y_test
 
-def load_explanations(file_path):
-    with open(file_path, 'r', encoding='utf-8') as file:
+def load_explanations(filename):
+    # プロジェクトのルートディレクトリへの絶対パスを取得
+    project_root = os.path.dirname(os.path.abspath(__file__))
+    # explanations.mdへの絶対パスを取得
+    explanations_md_path = os.path.join(project_root, filename)
+    
+    with open(explanations_md_path, 'r', encoding='utf-8') as file:
         return file.read()
