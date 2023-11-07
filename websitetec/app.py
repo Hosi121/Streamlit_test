@@ -1,7 +1,7 @@
 import streamlit as st
 from utils import load_mnist_data, load_explanations
 from canvas import display_canvas
-from knn_module import init_knn,　run_knn_classification
+from knn_module import init_knn, run_knn_classification
 
 # Streamlitアプリケーションの開始
 st.title("手書き数字認識アプリ")
