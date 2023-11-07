@@ -43,13 +43,11 @@ def run_knn_classification(canvas_result, knn, Y_train):
             st.write(f"あなたの予想: {user_prediction}, KNNによる判定結果: {prediction}")
             st.write(f"類似度上位の数字:")
             cols = st.columns(knn.k)
-            for i, idx in enumerate(indices.flatten()):
-                with cols[i]:
-                    # 画像を正しく変換
-                    pred_image = Image.fromarray(Y_train[idx].reshape(28, 28), mode='L')
-                    pred_image = pred_image.resize((100, 100))
-                    pred_image = np.array(pred_image)
-                    st.image(pred_image, clamp=True, caption=f'ラベル = {Y_train[idx]}')
-
+                for i, idx in enumerate(indexs.flatten()):
+                    with cols[i]:
+                        pred_image = Image.fromarray(X_test[idx])
+                        pred_image = pred_image.resize((100, 100))
+                        pred_image = np.array(pred_image)
+                        st.image(pred_image, clamp=True, caption=f'ラベル = {y_test[idx]}')
             # 正解率の表示
             st.metric(label="正解率", value=f"{accuracy:.2f}%")
