@@ -3,7 +3,7 @@ from streamlit_drawable_canvas import st_canvas
 
 def display_canvas(col):
     with col:
-        # マウスで文字を描画するキャンバスを作成
+        # Create canvas which can change by cursor
         return st_canvas(
             stroke_width=20,
             update_streamlit=False,
