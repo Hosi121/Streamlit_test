@@ -12,14 +12,21 @@ st.write("マウスで数字を描いて、予想を選んでから「予想を�
 # KNN モデルの初期化とトレーニング
 knn = init_knn(X_train, k=5)
 
-# セッションステートに 'user_prediction' が存在するか確認し、存在しない場合は初期化
-if 'user_prediction' not in st.session_state:
-    st.session_state.user_prediction = None
-
-# 正解記録を保持するためのセッションステートを初期化
 if 'attempts' not in st.session_state:
     st.session_state.attempts = 0
     st.session_state.correct = 0
+
+# ユーザーの予測を選択するためのラジオボタンを作成
+if 'user_prediction' not in st.session_state:
+    st.session_state.user_prediction = 0  # 初期値を設定
+
+user_prediction = st.radio(
+    "あなたの予測は何ですか？",
+    options=list(range(10)),  # 0から9までの数字を選択肢とする
+    index=st.session_state.user_prediction  # 現在の予測値をデフォルトとして設定
+)
+
+st.session_state.user_prediction = user_prediction
 
 # 画面レイアウトの設定
 col1, col2, col3 = st.columns([2,5,3])
