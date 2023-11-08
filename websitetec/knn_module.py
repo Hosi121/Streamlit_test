@@ -10,7 +10,7 @@ def init_knn(X_train, k=5):
     return knn
 
 # KNN による分類と結果の表示
-def run_knn_classification(canvas_result, knn, Y_train):
+def run_knn_classification(canvas_result, knn, Y_train, X_train):
     # 描画された画像を取得
     drawn_image = canvas_result.image_data
     drawn_image_gray = drawn_image[:, :, 3]  # アルファチャンネルを使用
