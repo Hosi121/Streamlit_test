@@ -1,10 +1,9 @@
 import streamlit as st
 from PIL import Image
 import numpy as np
-from tensorflow.keras.models import load_model
 
 # utils.pyから必要な関数をインポート
-from utils import load_mnist_data, load_explanations, load_css
+from utils import load_mnist_data, load_explanations, load_css, load_model
 # canvas.pyからキャンバス表示関数をインポート
 from canvas import display_canvas
 
