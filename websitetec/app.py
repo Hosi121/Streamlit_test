@@ -29,7 +29,7 @@ canvas_result = display_canvas(col2)
 
 # KNN による分類
 if canvas_result.image_data is not None:
-    run_knn_classification(canvas_result, knn, Y_train)
+    run_knn_classification(canvas_result, knn, Y_train, X_train)
 
 # サイドバーの表示
 with st.sidebar:
