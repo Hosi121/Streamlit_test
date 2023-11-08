@@ -14,9 +14,6 @@ body:before {
     bottom: 0;
     z-index: -1;
     display: block;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
     opacity: 0.6; /* 背景画像の透明度 */
 }
 """
