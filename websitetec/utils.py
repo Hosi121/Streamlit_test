@@ -11,3 +11,10 @@ def load_explanations(filename):
     
     with open(explanations_md_path, 'r', encoding='utf-8') as file:
         return file.read()
+
+def load_css(filename):
+    project_root = os.path.dirname(os.path.abspath(__file__))
+    css_path = os.path.join(project_root, filename)
+    
+    with open(css_path, 'r', encoding='utf-8') as file:
+        st.markdown(f'<style>{file.read()}</style>', unsafe_allow_html=True)
