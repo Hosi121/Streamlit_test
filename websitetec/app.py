@@ -8,7 +8,8 @@ from utils import load_mnist_data, load_explanations, load_css, load_model
 from canvas import display_canvas
 
 # スタイルシートの読み込み
-load_css('style.css')
+load_css('style.md')
+
 
 # モデルの読み込み
 cnn_model = load_model('my_model.keras')
