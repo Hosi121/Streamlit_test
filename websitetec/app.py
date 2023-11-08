@@ -34,9 +34,12 @@ st.session_state.user_prediction = user_prediction
 # 予測送信ボタン
 if st.button('予想を送信'):
     st.write(f"送信された予測: {user_prediction}")
+    
+# Assuming you have already defined columns in your Streamlit layout
+col1, col2, col3 = st.columns([2,5,3])
 
-# キャンバスの表示
-canvas_result = display_canvas()
+# Now you can pass one of these columns to the display_canvas function
+canvas_result = display_canvas(col2)
 
 # CNNを使用して予測する関数
 def predict_with_cnn(img, model):
