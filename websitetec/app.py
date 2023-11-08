@@ -29,6 +29,14 @@ user_prediction = st.radio(
 
 st.session_state.user_prediction = user_prediction
 
+if st.button('予想を送信'):
+    # ここに予測を処理するコードを追加
+    st.session_state.attempts += 1
+    # 予測が正しいかどうかをチェックするロジックをここに追加
+    # 例: if user_prediction == correct_label:
+    #     st.session_state.correct += 1
+    st.write(f"送信された予測: {user_prediction}")
+
 # settings layout
 col1, col2, col3 = st.columns([2,5,3])
 
