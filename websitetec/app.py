@@ -1,12 +1,11 @@
 import streamlit as st
 from PIL import Image
 import numpy as np
-from streamlit_drawable_canvas import st_canvas
-from tensorflow.keras.models import load_model
 
 # utils.pyから必要な関数をインポート
-# 以下の関数は、実際のファイルとその内容に基づいて適宜調整してください。
-from utils import load_css, load_explanations
+from utils import load_mnist_data, load_explanations, load_css, load_model
+# canvas.pyからキャンバス表示関数をインポート
+from canvas import display_canvas
 
 # スタイルシートの読み込み
 load_css('style.css')
@@ -24,7 +23,7 @@ if 'user_prediction' not in st.session_state:
 if 'attempts' not in st.session_state:
     st.session_state.attempts = 0
     st.session_state.correct = 0
-
+    
 # ユーザーの予測を取得するラジオボタン
 user_prediction = st.radio(
     "あなたの予測は何ですか？",
@@ -34,48 +33,44 @@ user_prediction = st.radio(
 
 # 予測をセッション状態に保存
 st.session_state.user_prediction = user_prediction
-
-# キャンバスの設定
+    
+# Assuming you have already defined columns in your Streamlit layout
 col1, col2, col3 = st.columns([2,5,3])
-canvas_result = st_canvas(
-    stroke_width=20,
-    update_streamlit=False,
-    height=200,
-    width=200,
-    drawing_mode='freedraw',
-    key="canvas",
-    column=col2  # キャンバスを表示する列
-)
+
+# Now you can pass one of these columns to the display_canvas function
+canvas_result = display_canvas(col2)
+
+# CNNを使用して予測する関数
+def predict_with_cnn(img, model):
+    # 画像をモデルの入力サイズにリサイズし、正規化する
+    img = img.reshape((1, 28, 28, 1)).astype('float32') / 255
+    
+    # 予測を行う
+    prediction = model.predict(img)
+    return np.argmax(prediction), max(prediction[0])
 
 # 予測送信ボタン
 if st.button('予想を送信'):
-    # 画像データの前処理
+    st.session_state.attempts += 1  # 試行回数をインクリメント
+    # 予測が正しいかどうかをチェックするロジックをここに追加
     if canvas_result.image_data is not None:
+        # 画像データの前処理
         img = canvas_result.image_data[:, :, 3]  # アルファチャネルを取得
         img = Image.fromarray(img).resize((28, 28)).convert('L')
-        img = np.array(img).reshape((1, 28, 28, 1)).astype('float32') / 255
+        img = np.array(img)
 
         # CNNモデルで予測
-        prediction = cnn_model.predict(img)
-        predicted_class = np.argmax(prediction)
-        confidence = np.max(prediction)
+        prediction, confidence = predict_with_cnn(img, cnn_model)
         
-        # 予測結果の表示
-        st.write(f"判定結果: {predicted_class} (信頼度: {confidence*100:.2f}%)")
-        
-        # 正解数と試行回数の更新
-        st.session_state.attempts += 1
-        if user_prediction == predicted_class:
-            st.session_state.correct += 1
-        
-        # 正解率の計算と表示
-        accuracy = (st.session_state.correct / st.session_state.attempts) * 100
-        st.write(f"正解率: {accuracy:.2f}%")
-    else:
-        st.write("予測するためには、まずキャンバスに数字を描いてください。")
+        # ユーザーの予測が正しいかチェック
+        if user_prediction == prediction:
+            st.session_state.correct += 1  # 正解数をインクリメント
 
-    # ユーザーの予測の表示
+    # 正解率を計算
+    accuracy = (st.session_state.correct / st.session_state.attempts) * 100
     st.write(f"送信された予測: {user_prediction}")
+    st.write(f"判定結果: {prediction} (信頼度: {confidence*100:.2f}%)")
+    st.write(f"現在の正解率: {accuracy:.2f}%")
 
 # サイドバーの表示
 with st.sidebar:
