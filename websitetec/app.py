@@ -1,5 +1,5 @@
 import streamlit as st
-from utils import load_mnist_data, load_explanations
+from utils import load_mnist_data, load_explanations, load_css
 from canvas import display_canvas
 from knn_module import init_knn, run_knn_classification
 
