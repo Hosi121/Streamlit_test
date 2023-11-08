@@ -3,7 +3,7 @@ from utils import load_mnist_data, load_explanations
 from canvas import display_canvas
 from knn_module import init_knn, run_knn_classification
 
-load_css('styles.css')
+load_css('style.css')
 X_train, Y_train = load_mnist_data()
 
 # Appilication Start
