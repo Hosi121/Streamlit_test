@@ -59,7 +59,7 @@ if canvas_result.image_data is not None:
 
     # CNNモデルで予測
     prediction, confidence = predict_with_cnn(img, cnn_model)
-    st.write(f"判定結果: {prediction} (信頼度: {confidence*100}点)")
+    st.write(f"判定結果: {prediction} (信頼度: {confidence*100:f2}点)")
 
 # サイドバーの表示
 with st.sidebar:
